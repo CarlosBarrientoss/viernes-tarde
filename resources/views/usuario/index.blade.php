@@ -29,7 +29,7 @@
 
                             <div class="table-responsive mt-3">
                                 <table class="table table-bordered">
-                                    <thead>
+                                    <thead> 
                                         <tr>
                                             <th style="width: 100px">Opciones</th>
                                             <th style="width: 20px">ID</th>

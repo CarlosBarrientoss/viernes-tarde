@@ -12,12 +12,15 @@
                         </div>
 
                         <div class="card-body">
-                            <form action="{{ route('usuarios.store') }}" method="POST" id="formRegistroUsuario">
+                            <form action="{{ isset($registro)?route('usuarios.update', $registro->id) : route('usuarios.store') }}" method="POST" id="formRegistroUsuario">
                                 @csrf
+                                @if (isset($registro))
+                                    @method('PUT')
+                                @endif
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
                                         <label for="name" class="form-label">Nombre</label>
-                                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" required>
+                                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name', $registro->name ??'') }}" required>
                                         @error('name')
                                             <small class="text-danger">{{$message}}</small>
                                         @enderror
