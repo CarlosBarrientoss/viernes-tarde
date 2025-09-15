@@ -84,4 +84,10 @@ class UserController extends Controller
         $registro->delete();
         return redirect()->route('usuarios.index')->with('mensaje', $registro->name. ' eliminado satisfatoriamente.');
     }
+
+    public function toggleStatus(User $usuario){
+        $usuario->activo = !$usuario->activo;
+        $usuario->save();
+        return redirect()->route('usuarios.index')->with('mensaje', 'El estado del usuario fue actualizado satisfactoriamente');
+    }
 }
