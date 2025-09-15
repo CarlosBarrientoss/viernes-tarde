@@ -1,9 +1,9 @@
-<div class="modal" id="modal-eliminar-{{  $reg->id }}" role="dialog" aria-labelledby="exampleModalLabel">
+<div class="modal" id="modal-toggle-{{  $reg->id }}" role="dialog" aria-labelledby="exampleModalLabel">
     <div class="modal-dialog">
         <div class="modal-content bg-danger">
-            <form action="{{ route('usuarios.destroy', $reg->id) }}" method="post">
+            <form action="{{ route('usuarios.toggle', $reg->id) }}" method="post">
                 @csrf
-                @method('DELETE')
+                @method('PATCH')
                 <div class="modal-header">
                     <h4>Eliminar registro</h4>
                 </div>
