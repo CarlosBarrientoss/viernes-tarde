@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,8 +20,10 @@ class AuthController extends Controller
             if($user->activo){
                 return redirect()->route('dashboard');
             }else{
-
+                Auth::logout();
+                return back()->with('error', 'El usuario no se encuentra activo, contacte al admiistrador');
             }
         }
+        return back()->with('error', 'Los datos ingresados no son correctos');
     }
 }
