@@ -21,7 +21,7 @@ class AuthController extends Controller
                 return redirect()->route('dashboard');
             }else{
                 Auth::logout();
-                return back()->with('error', 'El usuario no se encuentra activo, contacte al admiistrador');
+                return back()->with('error', 'El usuario no se encuentra activo, contacte al administrador');
             }
         }
         return back()->with('error', 'Los datos ingresados no son correctos');
