@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-
+use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
 {
@@ -14,10 +13,11 @@ class RoleController extends Controller
      */
     public function index(Request $request)
     {
-        $texto = $request->input('texto'); //variable del texto de busqueda
-        $registros=Role::with('permissions')->where('name', 'like', "%{$texto}%")
-                        ->orderBy('id', 'desc')
-                        ->paginate(2);
+        $texto = $request->input('texto'); // variable del texto de busqueda
+        $registros = Role::with('permissions')->where('name', 'like', "%{$texto}%")
+            ->orderBy('id', 'desc')
+            ->paginate(2);
+
         return view('role.index', compact('registros', 'texto'));
 
     }
@@ -28,6 +28,7 @@ class RoleController extends Controller
     public function create()
     {
         $permissions = Permission::all();
+
         return view('role.action', compact('permissions'));
     }
 
@@ -36,7 +37,14 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|unique:roles,name',
+            'permissions' => 'required|array',
+        ]);
+        $registro = Role::create(['name' => $request->name]);
+        $registro->syncPermissions($request->permissions);
+
+        return redirect()->route('roles.index')->with('mensaje', 'Rol '.$registro->name.' creado satisfactoriamente');
     }
 
     /**
@@ -52,7 +60,10 @@ class RoleController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $registro = Role::findOrFail($id);
+        $permissions = Permission::all();
+
+        return view('role.action', compact('registro', 'permissions'));
     }
 
     /**
@@ -60,7 +71,13 @@ class RoleController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $registro = Role::findOrFail($id);
+        $request->validate([
+            'name' => 'required|unique:roles,name'.$registro->id,
+            'permissions' => 'required|array',
+        ]);
+        $registro->update(['name' => $request->name]);
+        $registro->syncPermissions($request->permissions);
     }
 
     /**
@@ -68,6 +85,9 @@ class RoleController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $registro = Role::findOrFail($id);
+        $registro->delete();
+
+        return redirect()->route('roles.index')->with('mensaje', $registro->name.' eliminado satisfactoriamente.');
     }
 }
