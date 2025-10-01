@@ -41,7 +41,7 @@ class UserController extends Controller
         $registro->password=bcrypt($request->input('password'));
         $registro->activo=$request->input('activo');
         $registro->save();
-        return redirect()->route('usuarios.index')->with('mensaje','registro');
+        return redirect()->route('usuarios.index')->with('mensaje','Registro '.$registro->name. ' agregado correctamente');
     }
 
     /**
@@ -72,7 +72,7 @@ class UserController extends Controller
         $registro->password=bcrypt($request->input('password'));
         $registro->activo=$request->input('activo');
         $registro->save();
-        return redirect()->route('usuarios.index')->with('mensaje','registro'.$registro->name.' Actualizado satisfatoriamente ' );
+        return redirect()->route('usuarios.index')->with('mensaje','Registro '.$registro->name.' actualizado satisfatoriamente. ' );
     }
 
     /**
