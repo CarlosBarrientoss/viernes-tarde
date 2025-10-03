@@ -1,18 +1,20 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Http\Requests\UserRequest;
+use App\Http\Requests\UserRequest; 
 use App\Models\User;
 use Illuminate\Http\Request;
-
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class UserController extends Controller
 {
+    use AuthorizesRequests;
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
+        $this->authorize('user-list');
         $texto =$request->input('texto');
         $registros=User::where('name','like','%'.$texto.'%')
             ->orWhere('email','like','%'.$texto.'%')
@@ -27,6 +29,7 @@ class UserController extends Controller
      */
     public function create()
     {
+        $this->authorize('user-create');
         return view('usuario.action');
     }
 
@@ -35,6 +38,7 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
+        $this->authorize('user-create');
         $registro=new User();
         $registro->name=$request->input('name');
         $registro->email=$request->input('email');
@@ -57,6 +61,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('user-edit');
         $registro=User::findOrFail($id);
         return view('usuario.action', compact('registro'));
     }
@@ -66,6 +71,7 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, $id)
     {
+        $this->authorize('user-edit');
         $registro=User::findOrFail($id);
         $registro->name=$request->input('name');
         $registro->email=$request->input('email');

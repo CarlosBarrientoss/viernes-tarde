@@ -14,6 +14,7 @@
                         <div class="card-body">
                             <div>
                                 <form action="{{ route('usuarios.index') }}" method="get">
+                                    @csrf
                                     <div class="input-group">  
                                         <input name="texto" type="text" class="form-control" value="{{ $texto }}"
                                             placeholder="Ingrese texto a buscar">
