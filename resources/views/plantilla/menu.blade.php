@@ -20,15 +20,15 @@
             <!--begin::Sidebar Menu-->
             <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
-                    <a href="{{route('dashboard')}}" class="nav-link" id="mnuDashboard">
+                    <a href="{{route('dashboard')}}" class="nav-link" id="menuDashboard">
                         <i class="nav-icon bi bi-speedometer"></i>
                         <p>
-                            Dashboard
+                            Panel de Control
                         </p>
                     </a>
                 </li>
                 @canany(['user-list', 'rol-list'])
-                <li class="nav-item" id="mnuSeguridad">
+                <li class="nav-item" id="menuSeguridad">
                     <a href="#" class="nav-link">
                         <i class="nav-icon bi bi-speedometer"></i>
                         <p>
