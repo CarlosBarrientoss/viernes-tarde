@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\Auth\RegisterController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -25,4 +26,8 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware('guest')->group(function () {
     Route::get('login', function () { return view('autenticacion.login');})->name('login');
     Route::post('login', [AuthController::class, 'login'])->name('login.post');
+
+
+    Route::get('/registro', [RegisterController::class, 'showRegistrationForm'])->name('registro');
+    Route::post('/registro', [RegisterController::class, 'registration'])->name('registro.store');
 });
