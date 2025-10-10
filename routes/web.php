@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\Auth\PerfilController;
 use App\Http\Controllers\Auth\RegisterController;
 
 Route::get('/', function () {
@@ -12,6 +13,7 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth'])->group(function () {
+
     Route::resource('usuarios', UserController::class);
     Route::resource('roles', RoleController::class);
     Route::patch('usuarios/{usuario}/toggle', [UserController::class, 'toggleStatus'])->name('usuarios.toggle');
@@ -21,6 +23,9 @@ Route::middleware(['auth'])->group(function () {
      Auth::logout();
      return redirect('/login');
     })->name('logout');
+
+    Route::get('/perfil', [PerfilController::class, 'edit'])->name('perfil.edit');
+    Route::put('/perfil', [PerfilController::class, 'update'])->name('perfil.update');
 });
 
 Route::middleware('guest')->group(function () {

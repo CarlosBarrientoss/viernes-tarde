@@ -37,9 +37,11 @@
                      <!--end::User Image-->
 
                      <!--begin::Menu Footer-->
-                     <li class="user-footer">                      
+                     <li class="user-footer">     
+                         <a href="{{ route('perfil.edit') }}" class="btn btn-default btn-flat">Perfil</a>                 
                          <a href="#" onclick="document.getElementById('logout-form').submit();" class="btn btn-default btn-flat float-end">Cerrar sesión</a>
-                     </li>
+
+                        </li>
                      <!--end::Menu Footer-->
                  </ul>
              </li>
