@@ -7,6 +7,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\Auth\PerfilController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -35,4 +37,10 @@ Route::middleware('guest')->group(function () {
 
     Route::get('/registro', [RegisterController::class, 'showRegistrationForm'])->name('registro');
     Route::post('/registro', [RegisterController::class, 'registration'])->name('registro.store');
+
+    Route::get('password/reset', [ResetPasswordController::class, 'showRequestForm'])->name('password.request');
+    Route::post('password/email', [ResetPasswordController::class, 'sendResetLinkEmail'])->name('password.send-link');
+    Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+    Route::post('password/reset', [ResetPasswordController::class, 'resetPassword'])->name('password.update');
+
 });
