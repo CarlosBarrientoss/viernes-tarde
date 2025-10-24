@@ -8,6 +8,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\Auth\PerfilController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\ProductoController;
 
 
 Route::get('/', function () {
@@ -18,6 +19,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('usuarios', UserController::class);
     Route::resource('roles', RoleController::class);
+    Route::resource('productos', ProductoController::class);
     Route::patch('usuarios/{usuario}/toggle', [UserController::class, 'toggleStatus'])->name('usuarios.toggle');
     Route::get('dashboard', function () { return view('dashboard');})->name('dashboard');
     //segunda parte logout
